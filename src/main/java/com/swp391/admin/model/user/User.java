@@ -1,4 +1,4 @@
-package com.swp391.admin.model;
+package com.swp391.admin.model.user;
 
 import jakarta.persistence.*;
 import lombok.Data;

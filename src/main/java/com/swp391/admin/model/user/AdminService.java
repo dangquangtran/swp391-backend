@@ -1,4 +1,4 @@
-package com.swp391.admin.model;
+package com.swp391.admin.model.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,4 +45,6 @@ public class AdminService {
     public List<User> searchUserByRole(String role) {
         return adminRepository.findByRole(role);
     }
+
+
 }
