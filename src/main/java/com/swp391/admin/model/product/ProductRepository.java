@@ -8,6 +8,9 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Integer> {
+    @Query("select quantity, price From product")
+    public Float getRevenues(String id){
 
+    }
 
 }
