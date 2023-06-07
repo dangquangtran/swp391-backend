@@ -1,4 +1,4 @@
-package com.swp391.admin.model.bird_sale;
+package com.swp391.admin.model.product_sale;
 
 import com.swp391.admin.model.product.Product;
 import com.swp391.admin.model.product.ProductService;
@@ -20,23 +20,23 @@ public class TestController {
 
     private final ProductService productService;
     private final SaleService saleService;
-    private final Bird_Sale_Repository repo;
+    private final Product_SaleRepository repo;
 
     @GetMapping("/add")
     public String add()
     {
-        Product bird1 = new Product();
-        bird1.setName("chim cu");
-        bird1.setPrice(10000);
-        bird1.setQuantity(100);
+        Product product1 = new Product();
+        product1.setName("chim cu");
+        product1.setPrice(10000);
+        product1.setQuantity(100);
 
-        Product bird2 = new Product();
-        bird2.setName("chim chao mao");
-        bird2.setPrice(10000);
-        bird2.setQuantity(100);
+        Product product2 = new Product();
+        product2.setName("chim chao mao");
+        product2.setPrice(10000);
+        product2.setQuantity(100);
 
-        productService.createProduct(bird1);
-        productService.createProduct(bird2);
+        productService.createProduct(product1);
+        productService.createProduct(product2);
 
         Sale saleEvent = new Sale();
         saleEvent.setName("Summer Sale");
@@ -44,15 +44,15 @@ public class TestController {
         saleEvent.setSale_percent(10);
         saleService.createSaleEvent(saleEvent);
 
-        Bird_Sale birdSale = new Bird_Sale();
-        birdSale.setSale(saleEvent);
-        birdSale.setBird(bird1);
-        repo.save(birdSale);
+        Product_Sale productSale = new Product_Sale();
+        productSale.setSale(saleEvent);
+        productSale.setProduct(product1);
+        repo.save(productSale);
 
-        Bird_Sale birdSale2 = new Bird_Sale();
-        birdSale2.setSale(saleEvent);
-        birdSale2.setBird(bird2);
-        repo.save(birdSale2);
+        Product_Sale productSale2 = new Product_Sale();
+        productSale2.setSale(saleEvent);
+        productSale2.setProduct(product2);
+        repo.save(productSale2);
 
         return "OK";
     }
@@ -61,8 +61,8 @@ public class TestController {
     public List<Product> test(@RequestParam("id") int sale_id)
     {
         Sale sale = saleService.findSaleById(sale_id);
-        List<Bird_Sale> birdSales = repo.findBySale(sale);
-        var birds = birdSales.stream().map(a -> a.getBird()).collect(Collectors.toList());
-        return birds;
+        List<Product_Sale> productSales = repo.findBySale(sale);
+        var products = productSales.stream().map(a -> a.getProduct()).collect(Collectors.toList());
+        return products;
     }
 }

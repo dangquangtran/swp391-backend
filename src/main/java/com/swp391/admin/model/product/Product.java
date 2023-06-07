@@ -1,7 +1,8 @@
 package com.swp391.admin.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.swp391.admin.model.bird_sale.Bird_Sale;
+import com.swp391.admin.model.product_sale.Product_Sale;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,8 +33,8 @@ public class Product {
     private Integer price;
     private Integer quantity;
     private String type;
-
-    @OneToMany(mappedBy = "bird")
+    @OneToMany(mappedBy = "product")
     @JsonManagedReference
-    private List<Bird_Sale> bird_sales;
+    @JsonIgnore
+    private List<Product_Sale> product_sales;
 }

@@ -1,7 +1,11 @@
 package com.swp391.admin.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.swp391.admin.model.product.Product;
 import com.swp391.admin.model.product.ProductService;
+import com.swp391.admin.model.product_sale.Product_Sale;
+import com.swp391.admin.model.product_sale.Product_SaleRepository;
+import com.swp391.admin.model.product_sale.Product_SaleService;
 import com.swp391.admin.model.sale.Sale;
 import com.swp391.admin.model.sale.SaleService;
 import com.swp391.admin.model.user.AdminService;
@@ -18,11 +22,16 @@ public class AdminController {
     private final ProductService productService;
 
     private final SaleService saleService;
+
+    private final Product_SaleService product_saleService;
     @Autowired
-    public AdminController(AdminService adminService , ProductService productService, SaleService saleService) {
+    public AdminController(AdminService adminService , ProductService productService, SaleService saleService,
+                           Product_SaleService product_saleService
+                           ) {
         this.adminService = adminService;
         this.productService = productService;
         this.saleService = saleService;
+        this.product_saleService=product_saleService;
     }
 
 
@@ -69,14 +78,15 @@ public class AdminController {
     public List<Product> getListProduct(){
        return productService.getListProduct();
     }
-    @PostMapping("/product")
+    @PostMapping( "/product")
     public void createProduct(@RequestBody Product product){
         productService.createProduct(product);
     }
-//    @GetMapping("/bird/getlistbirdsale")
-//    public List<Bird> getListBirdSale(){
-//        return birdService.getListBirdSale();
-//    }
+
+    @GetMapping("/product/searchbyid")
+    public Product getProductById(@RequestParam int productId){
+        return productService.getProductById(productId);
+    }
 
 
     @GetMapping("/sale")
@@ -85,8 +95,33 @@ public class AdminController {
     }
 
     @PostMapping("/sale")
-    public void createSaleEvent(@RequestParam Sale sale){
+    public void createSaleEvent(@RequestBody Sale sale){
         saleService.createSaleEvent(sale);
     }
 
+    @GetMapping("/sale/searchbyid")
+    public Sale getSaleById(@RequestParam int saleId){
+        return saleService.findSaleById(saleId);
+    }
+
+
+
+
+
+    @GetMapping("/productsale")
+    public List<Product_Sale> getListProductSale (){
+        return product_saleService.getListProductSale();
+    }
+    @PostMapping("/productsale")
+    public void createProductSale(@RequestBody Product_Sale product_sale,
+                                  @RequestParam int productId,
+                                  @RequestParam int saleId){
+        product_saleService.createProductSale(product_sale,productId,saleId);
+    }
+
+    @GetMapping("/productsale/getproduct")
+    public List<Product> getProductInSaleEvent(@RequestParam int saleId){
+        return product_saleService.getProductInSaleEvent(saleId);
+    }
 }
+

@@ -1,6 +1,7 @@
-package com.swp391.admin.model.bird_sale;
+package com.swp391.admin.model.product_sale;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.swp391.admin.model.product.Product;
 import com.swp391.admin.model.sale.Sale;
 import jakarta.persistence.*;
@@ -13,24 +14,26 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bird_Sale {
+public class Product_Sale {
     @Id
     @SequenceGenerator(
-            name = "bird_sale_sequence",
-            sequenceName = "bird_sale_sequence",
+            name = "product_sale_sequence",
+            sequenceName = "product_sale_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "bird_sale_sequence"
+            generator = "product_sale_sequence"
     )
     private Integer id;
     @ManyToOne
-    @JoinColumn(name = "bird_id")
+    @JoinColumn(name = "product_id")
     @JsonBackReference
-    private Product bird;
+    @JsonIgnore
+    private Product product;
     @ManyToOne
     @JoinColumn(name = "sale_id")
     @JsonBackReference
+    @JsonIgnore
     private Sale sale;
 }

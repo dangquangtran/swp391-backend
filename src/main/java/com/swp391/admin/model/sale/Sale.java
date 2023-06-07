@@ -1,12 +1,17 @@
 package com.swp391.admin.model.sale;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.swp391.admin.model.bird_sale.Bird_Sale;
+import com.swp391.admin.model.product_sale.Product_Sale;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,8 +34,11 @@ public class Sale {
     private Integer id;
     private String name;
     private String describe;
-    private int sale_percent;
+    private Integer sale_percent;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate expiredDate;
     @OneToMany(mappedBy = "sale")
     @JsonManagedReference
-    private List<Bird_Sale> bird_sales;
+    @JsonIgnore
+    private List<Product_Sale> product_sales;
 }
