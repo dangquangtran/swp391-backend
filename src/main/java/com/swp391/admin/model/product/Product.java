@@ -2,6 +2,7 @@ package com.swp391.admin.model.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.swp391.admin.model.feedback.Feedback;
 import com.swp391.admin.model.product_sale.Product_Sale;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,8 +34,10 @@ public class Product {
     private Integer price;
     private Integer quantity;
     private String type;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonManagedReference
     @JsonIgnore
     private List<Product_Sale> product_sales;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Feedback> product_feedback;
 }

@@ -23,8 +23,7 @@ public class TestController {
     private final Product_SaleRepository repo;
 
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         Product product1 = new Product();
         product1.setName("chim cu");
         product1.setPrice(10000);
@@ -58,8 +57,7 @@ public class TestController {
     }
 
     @GetMapping
-    public List<Product> test(@RequestParam("id") int sale_id)
-    {
+    public List<Product> test(@RequestParam("id") int sale_id) {
         Sale sale = saleService.findSaleById(sale_id);
         List<Product_Sale> productSales = repo.findBySale(sale);
         var products = productSales.stream().map(a -> a.getProduct()).collect(Collectors.toList());

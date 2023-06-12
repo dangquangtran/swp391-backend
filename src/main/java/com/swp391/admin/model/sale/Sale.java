@@ -6,12 +6,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.swp391.admin.model.product_sale.Product_Sale;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -37,7 +35,7 @@ public class Sale {
     private Integer sale_percent;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate expiredDate;
-    @OneToMany(mappedBy = "sale")
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
     @JsonManagedReference
     @JsonIgnore
     private List<Product_Sale> product_sales;

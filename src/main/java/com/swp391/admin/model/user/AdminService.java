@@ -3,6 +3,7 @@ package com.swp391.admin.model.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -26,6 +27,7 @@ public class AdminService {
     public void deleteUser(String lastname) {
         adminRepository.deleteByLastname(lastname);
     }
+
     @Transactional
     public void updateUser(int id, String firstname, String lastname) {
         User user = adminRepository.findById(id);
@@ -40,7 +42,8 @@ public class AdminService {
     }
 
     public List<User> searchUserByLastName(String lastname) {
-        return adminRepository.findByLastnameContaining(lastname); }
+        return adminRepository.findByLastnameContaining(lastname);
+    }
 
     public List<User> searchUserByRole(String role) {
         return adminRepository.findByRole(role);

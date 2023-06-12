@@ -25,13 +25,12 @@ public class Product_SaleService {
     }
 
 
-
-    public List<Product_Sale> getListProductSale(){
+    public List<Product_Sale> getListProductSale() {
         return product_saleRepository.findAll();
     }
 
-    public void createProductSale(Product_Sale product_sale, int productId, int saleId){
-        Product product= productService.getProductById(productId);
+    public void createProductSale(Product_Sale product_sale, int productId, int saleId) {
+        Product product = productService.getProductById(productId);
         product_sale.setProduct(product);
         Sale sale = saleService.findSaleById(saleId);
         product_sale.setSale(sale);
@@ -43,4 +42,6 @@ public class Product_SaleService {
         List<Product_Sale> list = product_saleRepository.findBySale(sale);
         return list.stream().map(p -> p.getProduct()).collect(Collectors.toList());
     }
+
+
 }

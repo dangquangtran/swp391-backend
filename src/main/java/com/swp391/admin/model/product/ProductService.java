@@ -8,13 +8,14 @@ import java.util.List;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
+
     @Autowired
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
 
-    public List<Product> getListProduct(){
+    public List<Product> getListProduct() {
         return productRepository.findAll();
     }
 
@@ -22,7 +23,7 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public Product getProductById(int id){
+    public Product getProductById(int id) {
         return productRepository.findById(id).orElse(null);
     }
 
