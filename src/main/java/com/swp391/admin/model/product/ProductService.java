@@ -27,5 +27,8 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
+    public List<Product> getListLowrateProduct() {
+        return productRepository.getListLowrateProduct();
+    }
 
 }

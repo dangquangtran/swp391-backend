@@ -3,6 +3,7 @@ package com.swp391.admin.model.user;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -17,5 +18,5 @@ public interface AdminRepository extends JpaRepository<User, Integer> {
 
     List<User> findByRole(String role);
 
-
+    List<User> findByRegisteredDateAfter(LocalDate date);
 }

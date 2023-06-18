@@ -2,6 +2,10 @@ package com.swp391.admin.controller;
 
 import com.swp391.admin.model.feedback.Feedback;
 import com.swp391.admin.model.feedback.FeedbackService;
+import com.swp391.admin.model.order.Order;
+import com.swp391.admin.model.order.OrderService;
+import com.swp391.admin.model.order_product.Order_Product;
+import com.swp391.admin.model.order_product.Order_ProductService;
 import com.swp391.admin.model.product.Product;
 import com.swp391.admin.model.product.ProductService;
 import com.swp391.admin.model.product_sale.Product_Sale;
@@ -27,17 +31,23 @@ public class AdminController {
 
     private final FeedbackService feedbackService;
 
-    @Autowired
-    public AdminController(AdminService adminService, ProductService productService, SaleService saleService, Product_SaleService product_saleService, FeedbackService feedbackService) {
+    private final OrderService orderService;
+
+    private final Order_ProductService order_productService;
+
+    public AdminController(AdminService adminService, ProductService productService, SaleService saleService,
+                           Product_SaleService product_saleService, FeedbackService feedbackService,
+                           OrderService orderService, Order_ProductService order_productService) {
         this.adminService = adminService;
         this.productService = productService;
         this.saleService = saleService;
         this.product_saleService = product_saleService;
         this.feedbackService = feedbackService;
+        this.orderService = orderService;
+        this.order_productService = order_productService;
     }
 
-
-
+    @Autowired
 
 
     @GetMapping("/user")
@@ -77,6 +87,11 @@ public class AdminController {
         return adminService.searchUserByRole(role);
     }
 
+    @GetMapping("user/getnewuser")
+    public List<User> getListNewUser() {
+        return adminService.getListNewUser();
+    }
+
 
     @GetMapping("/product")
     public List<Product> getListProduct() {
@@ -93,6 +108,10 @@ public class AdminController {
         return productService.getProductById(productId);
     }
 
+    @GetMapping("/product/getlowrate")
+    public List<Product> getListLowrateProduct() {
+        return productService.getListLowrateProduct();
+    }
 
     @GetMapping("/sale")
     public List<Sale> getListSale() {
@@ -134,14 +153,46 @@ public class AdminController {
 
 
     @GetMapping("/feedback")
-    public List<Feedback> getListFeedback(){
+    public List<Feedback> getListFeedback() {
         return feedbackService.getListFeedback();
     }
 
     @PostMapping("/feedback")
     public void createFeedback(@RequestBody Feedback feedback,
-                               @RequestParam int productId){
-        feedbackService.createFeedback(feedback,productId);
+                               @RequestParam int productId) {
+        feedbackService.createFeedback(feedback, productId);
+    }
+
+    @GetMapping("/feedback/getbyproductid")
+    public List<Feedback> getListFeedbackByProductId(@RequestParam int productId) {
+        return feedbackService.getFeedbackByProductId(productId);
+    }
+
+    @GetMapping("/order")
+    public List<Order> getListOrder() {
+        return orderService.getListOrder();
+    }
+
+    @PostMapping("/order")
+    public void createOrder(@RequestBody Order order) {
+        orderService.createOrder(order);
+    }
+
+    @GetMapping("/order/revenue")
+    public double getRevenue() {
+        return orderService.getRevenue();
+    }
+
+    @GetMapping("/orderproduct")
+    public List<Order_Product> getListOrderProduct() {
+        return order_productService.getListOrderProduct();
+    }
+
+    @PostMapping("/orderproduct")
+    public void createOrderProduct(@RequestBody Order_Product orderProduct,
+                                   @RequestParam int productId,
+                                   @RequestParam int orderId) {
+        order_productService.createOrderProduct(orderProduct, productId, orderId);
     }
 }
 

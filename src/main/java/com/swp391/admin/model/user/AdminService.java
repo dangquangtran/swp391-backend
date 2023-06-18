@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -47,6 +48,11 @@ public class AdminService {
 
     public List<User> searchUserByRole(String role) {
         return adminRepository.findByRole(role);
+    }
+
+    public List<User> getListNewUser() {
+        LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
+        return adminRepository.findByRegisteredDateAfter(oneMonthAgo);
     }
 
 

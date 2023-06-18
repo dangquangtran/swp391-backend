@@ -36,4 +36,5 @@ public class Product_Sale {
     @JsonBackReference
     @JsonIgnore
     private Sale sale;
+
 }

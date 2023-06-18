@@ -1,12 +1,17 @@
 package com.swp391.admin.model.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @Entity
+@AllArgsConstructor
 @Table(name = "_user")
 public class User {
     @Id
@@ -26,13 +31,8 @@ public class User {
     private String password;
     private String imageurl;
     private String role;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate registeredDate;
 
-    public User(String firstname, String lastname, String email, String password, String imageurl, String role) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.imageurl = imageurl;
-        this.role = role;
-    }
+
 }
