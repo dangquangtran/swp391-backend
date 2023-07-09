@@ -92,6 +92,11 @@ public class AdminController {
         return adminService.getListNewUser();
     }
 
+    @PutMapping("user/banuser")
+    public void banUser(@RequestParam int userid) {
+        adminService.banUser(userid);
+    }
+
 
     @GetMapping("/product")
     public List<Product> getListProduct() {

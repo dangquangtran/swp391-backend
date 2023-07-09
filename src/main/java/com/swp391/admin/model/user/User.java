@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -33,6 +34,7 @@ public class User {
     private String role;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate registeredDate;
+    private Boolean locked;
 
 
 }

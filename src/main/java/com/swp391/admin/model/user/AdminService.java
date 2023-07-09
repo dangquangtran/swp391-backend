@@ -55,5 +55,8 @@ public class AdminService {
         return adminRepository.findByRegisteredDateAfter(oneMonthAgo);
     }
 
-
+    public void banUser(int id) {
+        User user = adminRepository.findById(id);
+        user.setLocked(true);
+    }
 }
